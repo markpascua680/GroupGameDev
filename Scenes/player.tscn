@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://b0uvi5r1cxey0"]
+[gd_scene load_steps=30 format=3 uid="uid://b0uvi5r1cxey0"]
 
 [ext_resource type="Texture2D" uid="uid://cq2nup824lpqa" path="res://Assets/Player/Small-8-Direction-Characters_by_AxulArt.png" id="1_04ygy"]
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_acam8"]
+[ext_resource type="PackedScene" uid="uid://es8ldsahfg18" path="res://Scenes/Attacks/BasicSlash.tscn" id="3_aae6s"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a5a5l"]
 radius = 7.0
@@ -276,6 +277,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
+up_direction = Vector2(0, 1)
 script = ExtResource("1_acam8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -288,3 +290,9 @@ animation = &"IdleDown"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
+
+[node name="Attacks" type="Node2D" parent="."]
+
+[node name="BasicSlash" parent="Attacks" instance=ExtResource("3_aae6s")]
+position = Vector2(-7.10543e-15, 12)
+scale = Vector2(0.260001, 0.219999)

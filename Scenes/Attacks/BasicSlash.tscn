@@ -1,0 +1,99 @@
+[gd_scene load_steps=16 format=3 uid="uid://es8ldsahfg18"]
+
+[ext_resource type="Texture2D" uid="uid://b1ruvnjbvufl5" path="res://Assets/EntitiesAssets/VFX/Circle_explosion/Circle_explosion3.png" id="1_djrhx"]
+[ext_resource type="Script" path="res://Scenes/Attacks/BasicSlash.cs" id="1_pc62e"]
+[ext_resource type="Texture2D" uid="uid://fscqpmntx7ea" path="res://Assets/EntitiesAssets/VFX/Circle_explosion/Circle_explosion1.png" id="2_vricu"]
+[ext_resource type="Texture2D" uid="uid://b215vobp0hvku" path="res://Assets/EntitiesAssets/VFX/Circle_explosion/Circle_explosion2.png" id="3_23fkv"]
+[ext_resource type="Texture2D" uid="uid://cxdaht0e2kwc" path="res://Assets/EntitiesAssets/VFX/Circle_explosion/Circle_explosion4.png" id="4_otqec"]
+[ext_resource type="Texture2D" uid="uid://2gi3vym523sy" path="res://Assets/EntitiesAssets/VFX/Circle_explosion/Circle_explosion5.png" id="5_e8nyr"]
+[ext_resource type="Texture2D" uid="uid://c1pl5knbglpod" path="res://Assets/EntitiesAssets/VFX/Circle_explosion/Circle_explosion6.png" id="6_nyfpr"]
+[ext_resource type="Texture2D" uid="uid://c8b3ff1bvssj1" path="res://Assets/EntitiesAssets/VFX/Circle_explosion/Circle_explosion7.png" id="7_7uj0v"]
+[ext_resource type="Texture2D" uid="uid://ccg8xus8lep13" path="res://Assets/EntitiesAssets/VFX/Circle_explosion/Circle_explosion8.png" id="8_smbpv"]
+[ext_resource type="Texture2D" uid="uid://b7xsye6icsjf3" path="res://Assets/EntitiesAssets/VFX/Circle_explosion/Circle_explosion9.png" id="9_gx78s"]
+[ext_resource type="Texture2D" uid="uid://d0kpdbolcvmgu" path="res://Assets/EntitiesAssets/VFX/Circle_explosion/Circle_explosion10.png" id="10_swidk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u03ef"]
+radius = 33.0
+
+[sub_resource type="Animation" id="Animation_1rjyr"]
+resource_name = "Expand"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:sprite_frames")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c6xva"]
+_data = {
+"Expand": SubResource("Animation_1rjyr")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hpkv8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vricu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_djrhx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_23fkv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_otqec")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_e8nyr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_nyfpr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7uj0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_smbpv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gx78s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_swidk")
+}],
+"loop": false,
+"name": &"default",
+"speed": 35.0
+}]
+
+[node name="BasicSlash" type="Node2D"]
+script = ExtResource("1_pc62e")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_u03ef")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_c6xva")
+}
+speed_scale = 4.0
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimationPlayer"]
+visible = false
+texture = ExtResource("1_djrhx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hpkv8")
+frame = 9
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
