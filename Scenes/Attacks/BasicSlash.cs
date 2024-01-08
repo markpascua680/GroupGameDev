@@ -19,15 +19,17 @@ public partial class BasicSlash : Node2D
 		
 	}
 
-	public async void PlayAnimation(){
+	public void PlayAnimation(){
 		Visible = true;
-		GetChild<AnimatedSprite2D>(2).Play();
-		GetChild(1).GetChild<CollisionShape2D>(0).Disabled = false;
+		GetParent().GetParent().GetChild<AnimatedSprite2D>(1).Play("SimpleSwingDown");
+		//GetChild<AnimatedSprite2D>(2).Play();
+		GetChild(0).GetChild<CollisionShape2D>(0).Disabled = false;
 	}
 	private void _on_animated_sprite_2d_animation_finished()
 	{
+		GetParent().GetParent().GetChild<AnimatedSprite2D>(1).Stop();
 		GetChild<AnimatedSprite2D>(2).Stop();
-		GetChild(1).GetChild<CollisionShape2D>(0).Disabled = true;
+		GetChild(0).GetChild<CollisionShape2D>(0).Disabled = true;
 		Visible = false;
 	}
 

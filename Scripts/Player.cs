@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Numerics;
-using Godot;
 
 
 public partial class Player : CharacterBody2D
@@ -19,22 +18,28 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{	
 		Animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		BasicAttack();
 	}
 
 	
 	public void GetInput()
 	{
+		if(Input.IsActionPressed("Attack"))
+		{
+			BasicAttack();
+		}
 		InputDirection = Input.GetVector("Left", "Right", "Up", "Down");
 		Velocity = InputDirection * Speed;
 	}
 
-	public async void BasicAttack()
+	public void BasicAttack()
 	{
 		GetChild(3).GetChild(0).Call("PlayAnimation");
-		GD.Print(GetChild(3).GetChild(0).Name);
 	}
 
+	public void FreezeInput()
+	{
+
+	}
 	public override void _PhysicsProcess(double delta)
 	{
 		GetInput();
@@ -77,8 +82,6 @@ public partial class Player : CharacterBody2D
 	}
 	private void PlayAnimation()
 	{
-		GD.Print(PlayerDirection);
-		GD.Print(GetChild(3).GetChild<Node2D>(0).Position);
 		var distance = 12;
 		int PlayerDirectionEnum = 0;
 		if (Input.IsActionPressed("Up"))
